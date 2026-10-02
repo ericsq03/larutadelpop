@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSFiddle brg8y3fp</title>
+
+  <style>
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f2fbfa;
+  color: #173b40;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 430px;
+  background:
+    linear-gradient(
+      rgba(0, 75, 82, 0.78),
+      rgba(0, 120, 120, 0.75)
+    ),
+    radial-gradient(circle at 30% 20%, #55d6c2, #006b72);
+
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero-content {
+  max-width: 850px;
+}
+
+.octopus {
+  font-size: 80px;
+  animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%,100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.hero h1 {
+  font-size: clamp(35px, 7vw, 70px);
+  margin: 10px 0;
+  letter-spacing: 2px;
+}
+
+.hero p {
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.progress-box {
+  background: rgba(255,255,255,.15);
+  padding: 18px;
+  border-radius: 20px;
+  margin-top: 30px;
+  backdrop-filter: blur(10px);
+}
+
+.progress-box span {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.progress-box strong {
+  display: block;
+  margin: 8px;
+}
+
+.progress {
+  height: 13px;
+  background: rgba(255,255,255,.25);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#progressBar {
+  width: 0%;
+  height: 100%;
+  background: #ffd166;
+  transition: .5s;
+}
+
+/* INTRO */
+
+.intro {
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
+  padding: 70px 20px 30px;
+}
+
+.intro h2 {
+  font-size: 32px;
+}
+
+/* MAPA / RUTA */
+
+.map-section {
+  max-width: 850px;
+  margin: 30px auto 80px;
+  padding: 20px;
+  position: relative;
+}
+
+.route-line {
+  position: absolute;
+  left: 50%;
+  top: 50px;
+  bottom: 50px;
+  width: 5px;
+  background: linear-gradient(
+    #00a896,
+    #55cdbb,
+    #007c83
+  );
+  transform: translateX(-50%);
+  border-radius: 10px;
+}
+
+.point {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 65px 0;
+  cursor: pointer;
+}
+
+.point:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.point-icon {
+  width: 90px;
+  height: 90px;
+  min-width: 90px;
+  background: white;
+  border: 6px solid #00a896;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  transition: .3s;
+}
+
+.point:hover .point-icon {
+  transform: scale(1.15) rotate(8deg);
+}
+
+.number {
+  position: absolute;
+  z-index: 4;
+  left: calc(50% - 13px);
+  top: -10px;
+  background: #173b40;
+  color: white;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 27px;
+  font-weight: bold;
+}
+
+.card {
+  width: calc(50% - 65px);
+  background: white;
+  padding: 25px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  transition: .3s;
+}
+
+.point:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,.14);
+}
+
+.point:nth-child(odd) .card {
+  margin-right: 45px;
+}
+
+.point:nth-child(even) .card {
+  margin-left: 45px;
+}
+
+.card h3 {
+  margin: 8px 0;
+  font-size: 25px;
+}
+
+.card p {
+  line-height: 1.5;
+  color: #527074;
+}
+
+.tag {
+  display: inline-block;
+  background: #d8f6f0;
+  color: #007c83;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 20px;
+}
+
+.mini-info {
+  font-size: 13px;
+  margin: 15px 0;
+}
+
+.card button,
+.check {
+  border: none;
+  background: #007c83;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.card button:hover,
+.check:hover {
+  background: #005b60;
+}
+
+/* LOCAL */
+
+.local {
+  background: #173b40;
+  color: white;
+  text-align: center;
+  padding: 70px 25px;
+}
+
+.local div {
+  font-size: 60px;
+}
+
+.local h2 {
+  font-size: 35px;
+}
+
+.local p {
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+/* MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-content {
+  max-width: 650px;
+  margin: 50px auto;
+  background: white;
+  padding: 35px;
+  border-radius: 30px;
+  position: relative;
+  animation: popup .3s ease;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  border: none;
+  background: none;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.modal-icon {
+  font-size: 65px;
+}
+
+.modal-content h2 {
+  font-size: 32px;
+}
+
+.mission,
+.riddle,
+.media {
+  padding: 20px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.mission {
+  background: #e5f8f4;
+}
+
+.riddle {
+  background: #fff4d6;
+}
+
+.media {
+  background: #edf4ff;
+}
+
+.riddle input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.fake-qr {
+  width: 130px;
+  height: 130px;
+  margin: 20px auto;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #111 0px,
+      #111 5px,
+      white 5px,
+      white 10px
+    );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 10px solid white;
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+.fake-qr span {
+  font-size: 35px;
+  background: white;
+  padding: 4px;
+}
+
+.fake-qr small {
+  background: white;
+  padding: 2px 5px;
+  font-weight: bold;
+}
+
+#result {
+  font-weight: bold;
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #0d292d;
+  color: white;
+}
+
+/* MÒBIL */
+
+@media (max-width: 700px) {
+
+  .route-line {
+    left: 45px;
+  }
+
+  .point,
+  .point:nth-child(even) {
+    flex-direction: row;
+  }
+
+  .point-icon {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    font-size: 32px;
+  }
+
+  .number {
+    left: 31px;
+  }
+
+  .card,
+  .point:nth-child(odd) .card,
+  .point:nth-child(even) .card {
+    width: calc(100% - 90px);
+    margin-left: 20px;
+    margin-right: 0;
+    padding: 18px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+  }
+
+  .hero {
+    min-height: 400px;
+  }
+}
+  </style>
+
+  
+</head>
+<body>
+  <div class="app">
+
+  <header class="hero">
+    <div class="hero-content">
+      <div class="octopus">🐙</div>
+      <h1>A RUTA DOS 8 TENTACLES</h1>
+      <p>Descobreix una Galícia menys coneguda, resol reptes i ajuda a impulsar els negocis locals.</p>
+
+      <div class="progress-box">
+        <span>PROGRÉS DE L'AVENTURA</span>
+        <strong id="progressText">0 / 8 tentacles</strong>
+        <div class="progress">
+          <div id="progressBar"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="intro">
+      <h2>🗺️ El teu viatge comença aquí</h2>
+      <p>
+        Recorre 8 destinacions, descobreix paisatges, llegendes i gastronomia,
+        completa reptes i coneix els negocis locals de cada territori.
+      </p>
+    </section>
+
+    <section class="map-section">
+
+      <div class="route-line"></div>
+
+      <!-- LUGO -->
+      <article class="point" onclick="openPoint(0)">
+        <div class="number">1</div>
+        <div class="point-icon">🏛️</div>
+
+        <div class="card">
+          <span class="tag">INICI</span>
+          <h3>📍 Lugo</h3>
+          <p>La porta d'entrada a la nostra aventura.</p>
+          <div class="mini-info">
+            🏛️ Història · 🌊 Natura · 🍴 Gastronomia
+          </div>
+          <button>DESCUBREIX →</button>
+        </div>
+      </article>
+
+      <!-- FRIOL -->
+      <article class="point" onclick="openPoint(1)">
+        <div class="number">2</div>
+        <div class="point-icon">🌲</div>
+
+        <div class="card">
+          <span class="tag">26 MIN</span>
+          <h3>📍 Friol</h3>
+          <p>Un paisatge de muntanya ple de misteris.</p>
+          <div class="mini-info">
+            🌲 Bosc · 👻 Llegendes · 🥾 Ruta
+          </div>
+          <button>RESOL EL REPTE →</button>
+        </div>
+      </article>
+
+      <!-- FOZ -->
+      <article class="point" onclick="openPoint(2)">
+        <div class="number">3</div>
+        <div class="point-icon">🌊</div>
+
+        <div class="card">
+          <span class="tag">1 H 08 MIN</span>
+          <h3>📍 Foz</h3>
+          <p>El mar, el port i les platges de la costa de Lugo.</p>
+          <div class="mini-info">
+            🏖️ Platges · ⚓ Port · 🍴 Restaurants
+          </div>
+          <button>EXPLORA FOZ →</button>
+        </div>
+      </article>
+
+      <!-- O VALADOURO -->
+      <article class="point" onclick="openPoint(3)">
+        <div class="number">4</div>
+        <div class="point-icon">⛰️</div>
+
+        <div class="card">
+          <span class="tag">18 MIN</span>
+          <h3>📍 O Valadouro</h3>
+          <p>Muntanyes, senderisme i gastronomia gallega.</p>
+          <div class="mini-info">
+            ⛰️ Muntanya · 🥾 Senderisme · 🐙 Gastronomia
+          </div>
+          <button>REPTE GASTRONÒMIC →</button>
+        </div>
+      </article>
+
+      <!-- CEDEIRA -->
+      <article class="point" onclick="openPoint(4)">
+        <div class="number">5</div>
+        <div class="point-icon">🐚</div>
+
+        <div class="card">
+          <span class="tag">1 H 30 MIN</span>
+          <h3>📍 Cedeira</h3>
+          <p>La ria, les platges i els sabors de la costa.</p>
+          <div class="mini-info">
+            🌊 Ria · 🏖️ Platges · 🐙 Polp
+          </div>
+          <button>MISSIÓ DEL MAR →</button>
+        </div>
+      </article>
+
+      <!-- GOXÁN -->
+      <article class="point" onclick="openPoint(5)">
+        <div class="number">6</div>
+        <div class="point-icon">🏡</div>
+
+        <div class="card">
+          <span class="tag">35 MIN</span>
+          <h3>📍 Goxán</h3>
+          <p>Descobreix un territori que encara guarda secrets.</p>
+          <div class="mini-info">
+            🏡 Poble · 🔎 Exploració · 📸 Fotografia
+          </div>
+          <button>DESCOBREIX EL POBLE →</button>
+        </div>
+      </article>
+
+      <!-- CAIÓN -->
+      <article class="point" onclick="openPoint(6)">
+        <div class="number">7</div>
+        <div class="point-icon">🏖️</div>
+
+        <div class="card">
+          <span class="tag">15 MIN</span>
+          <h3>📍 Caión</h3>
+          <p>Una gran experiència davant de l'oceà Atlàntic.</p>
+          <div class="mini-info">
+            🌊 Oceà · 🏖️ Platja · 📸 Fotografia
+          </div>
+          <button>REPTE DE LA COSTA →</button>
+        </div>
+      </article>
+
+      <!-- BEO -->
+      <article class="point final-point" onclick="openPoint(7)">
+        <div class="number">8</div>
+        <div class="point-icon">🐍</div>
+
+        <div class="card">
+          <span class="tag">FINAL</span>
+          <h3>📍 Beo</h3>
+          <p>La muntanya de la serpentina. El gran repte final.</p>
+          <div class="mini-info">
+            🐍 Llegenda · ⛰️ Muntanya · 🌊 Costa
+          </div>
+          <button>REPTE FINAL →</button>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="local">
+      <div>🐙</div>
+      <h2>Impulsem el turisme local</h2>
+      <p>
+        Aquesta ruta vol donar visibilitat a territoris menys coneguts
+        i fomentar el consum als restaurants, allotjaments i comerços locals.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- FINESTRA DELS REPTES -->
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+
+      <button class="close" onclick="closeModal()">×</button>
+
+      <div id="modalIcon" class="modal-icon">🐙</div>
+
+      <h2 id="modalTitle">Títol</h2>
+
+      <p id="modalDescription"></p>
+
+      <div class="mission">
+        <h3>🎯 LA TEVA MISSIÓ</h3>
+        <p id="modalMission"></p>
+      </div>
+
+      <div class="riddle">
+        <h3>🔐 ENIGMA</h3>
+        <p id="modalRiddle"></p>
+
+        <input
+          id="answer"
+          type="text"
+          placeholder="Escriu la teva resposta..."
+        >
+
+        <button class="check" onclick="checkAnswer()">
+          COMPROVAR RESPOSTA
+        </button>
+
+        <p id="result"></p>
+      </div>
+
+      <div class="media">
+        🎥 <strong>Experiència multimèdia</strong>
+        <p>Escaneja el QR del punt per veure el vídeo, escoltar l'àudio o descobrir una pista.</p>
+
+        <div class="fake-qr">
+          <span>🐙</span>
+          <small>QR</small>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    🐙 A RUTA DOS 8 TENTACLES · Descobreix · Juga · Comparteix · Impulsa
+  </footer>
+
+</div>
+
+  <script>
+    const points = [
+  {
+    icon: "🏛️",
+    title: "Lugo — La porta d'entrada",
+    description:
+      "Comença l'aventura a Lugo, una ciutat amb història, cultura i espais naturals.",
+    mission:
+      "Troba un element històric de Lugo, fes-li una fotografia i descobreix una curiositat sobre la ciutat.",
+    riddle:
+      "Tinc murs, però no sóc una casa. Sóc molt antic i protegeixo una ciutat. Què sóc?",
+    answer: "muralla"
+  },
+
+  {
+    icon: "🌲",
+    title: "Friol — El bosc de la llegenda",
+    description:
+      "Endinsa't en els paisatges de muntanya i descobreix les històries que envolten els seus boscos.",
+    mission:
+      "Busca el símbol secret del polp i escolta la història del bosc.",
+    riddle:
+      "No tinc boca però xiulo. No tinc peus però camino. Què sóc?",
+    answer: "vent"
+  },
+
+  {
+    icon: "🌊",
+    title: "Foz — On la terra abraça el mar",
+    description:
+      "Descobreix les platges, el port i els sabors de la costa de Lugo.",
+    mission:
+      "Fes una fotografia del teu racó preferit de la costa i visita un negoci local participant.",
+    riddle:
+      "Tinc vuit braços i visc al mar. Qui sóc?",
+    answer: "polp"
+  },
+
+  {
+    icon: "⛰️",
+    title: "O Valadouro — La vall dels sabors",
+    description:
+      "Un espai de muntanya perfecte per combinar senderisme, natura i gastronomia.",
+    mission:
+      "Descobreix un producte local i pregunta a un establiment participant quin és el seu plat més representatiu.",
+    riddle:
+      "Sóc alt, puc tenir arbres i animals, i m'agrada tocar els núvols. Què sóc?",
+    answer: "muntanya"
+  },
+
+  {
+    icon: "🐚",
+    title: "Cedeira — Entre ria i oceà",
+    description:
+      "Gaudeix de la ria, les platges i la gastronomia marinera.",
+    mission:
+      "Escolta el so del mar, busca el símbol del polp i descobreix un restaurant local.",
+    riddle:
+      "No sóc peix però visc al mar. Tinc una closca i camino molt lentament. Què sóc?",
+    answer: "cargol"
+  },
+
+  {
+    icon: "🏡",
+    title: "Goxán — Descobreix el que altres no veuen",
+    description:
+      "Una parada pensada per descobrir un territori menys conegut i donar visibilitat al turisme rural.",
+    mission:
+      "Troba una casa tradicional, un element natural, un element patrimonial i el teu racó preferit.",
+    riddle:
+      "No sóc ciutat ni tampoc una gran vila. Tinc poques cases i molta tranquil·litat. Què sóc?",
+    answer: "poble"
+  },
+
+  {
+    icon: "🏖️",
+    title: "Caión — El tentacle de la costa",
+    description:
+      "Una experiència davant de l'oceà Atlàntic, amb platja, paisatge i gastronomia.",
+    mission:
+      "Fes una fotografia amb l'oceà de fons i busca el símbol secret amagat al recorregut.",
+    riddle:
+      "Sóc immens, tinc onades i cobreixo gran part del planeta. Què sóc?",
+    answer: "mar"
+  },
+
+  {
+    icon: "🐍",
+    title: "Beo — La terra de la serpentina",
+    description:
+      "Arriba al final de l'aventura i descobreix les muntanyes, la costa i les llegendes del territori.",
+    mission:
+      "Segueix les pistes, resol l'enigma final i aconsegueix la contrasenya de la ruta.",
+    riddle:
+      "No tinc potes però em desplaço. Puc ser molt llarga i visc entre la natura. Què sóc?",
+    answer: "serp"
+  }
+];
+
+let currentPoint = 0;
+let completed = [];
+
+function openPoint(index) {
+
+  currentPoint = index;
+
+  const point = points[index];
+
+  document.getElementById("modalIcon").textContent = point.icon;
+
+  document.getElementById("modalTitle").textContent = point.title;
+
+  document.getElementById("modalDescription").textContent =
+    point.description;
+
+  document.getElementById("modalMission").textContent =
+    point.mission;
+
+  document.getElementById("modalRiddle").textContent =
+    point.riddle;
+
+  document.getElementById("answer").value = "";
+
+  document.getElementById("result").textContent = "";
+
+  document.getElementById("modal").style.display = "block";
+
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+
+  document.getElementById("modal").style.display = "none";
+
+  document.body.style.overflow = "auto";
+}
+
+function checkAnswer() {
+
+  const answer =
+    document
+      .getElementById("answer")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const correct =
+    points[currentPoint].answer.toLowerCase();
+
+  const result =
+    document.getElementById("result");
+
+  if (answer === correct) {
+
+    result.textContent =
+      "🎉 CORRECTE! Has desbloquejat un tentacle! 🐙";
+
+    if (!completed.includes(currentPoint)) {
+
+      completed.push(currentPoint);
+
+      updateProgress();
+    }
+
+  } else {
+
+    result.textContent =
+      "❌ Encara no... Busca una altra pista!";
+  }
+}
+
+function updateProgress() {
+
+  const total = points.length;
+
+  const number = completed.length;
+
+  const percentage =
+    (number / total) * 100;
+
+  document.getElementById("progressBar").style.width =
+    percentage + "%";
+
+  document.getElementById("progressText").textContent =
+    number + " / " + total + " tentacles";
+
+  if (number === total) {
+
+    setTimeout(() => {
+
+      alert(
+        "🐙🎉 ENHORABONA! 🎉🐙\n\n" +
+        "Has completat A RUTA DOS 8 TENTACLES!"
+      );
+
+    }, 300);
+  }
+}
+
+window.onclick = function(event) {
+
+  const modal =
+    document.getElementById("modal");
+
+  if (event.target === modal) {
+
+    closeModal();
+  }
+};
+  </script>
+</body>
+</html>
